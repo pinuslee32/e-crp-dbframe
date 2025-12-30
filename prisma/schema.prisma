@@ -1,0 +1,181 @@
+// E-CRP DB Frame - Prisma Schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// Enums
+// ============================================
+
+enum RotationDirection {
+  RIGHT
+  LEFT
+}
+
+enum PropellerFileType {
+  OFFSET          // Offset 파일 (.dat)
+  SECTION         // 사용단면 파일 (.blk)
+  IMAGE_TOP       // 형상 사진 (top)
+  IMAGE_FRONT     // 형상 사진 (front)
+  IMAGE_SIDE      // 형상 사진 (side)
+  DRAWING         // 제작도면 파일
+  GEOMETRY_DATA   // Propeller Geometry Data (.out)
+  GEOMETRY_INFO   // 형상 정보 파일 (.csv)
+  CAD_IGS         // 형상 파일 (.igs)
+  CAD_STL         // 형상 파일 (.stl)
+  CAD_STP         // 형상 파일 (.stp)
+}
+
+enum AnalysisFileType {
+  PRESSURE        // 해석결과 (Pressure)
+  WAKE            // 해석결과 (Wake)
+  GRAPH_TURBULENT // Turbulent Graph
+  GRAPH_FORCE     // Rotating propeller force Graph
+}
+
+// ============================================
+// Models
+// ============================================
+
+/// 프로펠러 기본 정보
+model Propeller {
+  id                  Int                   @id @default(autoincrement())
+  name                String                @unique @db.VarChar(100)
+  bladeCount          Int                   @map("blade_count")
+  sectionType         String                @map("section_type") @db.VarChar(50)
+  hasSectionFile      Boolean               @default(false) @map("has_section_file")
+  rotationDirection   RotationDirection     @map("rotation_direction")
+  powerRatio          String                @map("power_ratio") @db.VarChar(10)
+  scaleRatio          Decimal               @map("scale_ratio") @db.Decimal(10, 4)
+  hasOffsetFile       Boolean               @default(false) @map("has_offset_file")
+  createdAt           DateTime              @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt           DateTime              @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  files               PropellerFile[]
+  analyses            PerformanceAnalysis[]
+
+  @@map("propellers")
+}
+
+/// 프로펠러 파일
+model PropellerFile {
+  id            Int               @id @default(autoincrement())
+  propellerId   Int               @map("propeller_id")
+  fileType      PropellerFileType @map("file_type")
+  filePath      String            @map("file_path") @db.VarChar(500)
+  originalName  String            @map("original_name") @db.VarChar(255)
+  fileSize      BigInt?           @map("file_size")
+  createdAt     DateTime          @default(now()) @map("created_at") @db.Timestamptz
+
+  propeller     Propeller         @relation(fields: [propellerId], references: [id], onDelete: Cascade)
+
+  @@index([propellerId])
+  @@index([fileType])
+  @@map("propeller_files")
+}
+
+/// 성능해석
+model PerformanceAnalysis {
+  id              Int       @id @default(autoincrement())
+  propellerId     Int       @map("propeller_id")
+
+  // Input 항목
+  density         Decimal   @db.Decimal(12, 6)
+  viscosity       Decimal   @db.Decimal(12, 8)
+  afterRps        Decimal   @map("after_rps") @db.Decimal(10, 4)
+  forwardRps      Decimal   @map("forward_rps") @db.Decimal(10, 4)
+  rpsRatio        Decimal?  @map("rps_ratio") @db.Decimal(6, 4)
+  reynoldsNumber  Decimal?  @map("reynolds_number") @db.Decimal(15, 8)
+  jCoefficient    Decimal   @map("j_coefficient") @db.Decimal(6, 4)
+  velocity        Decimal?  @db.Decimal(12, 6)
+
+  // Output 항목
+  thrust          Decimal?  @db.Decimal(12, 4)
+  torque          Decimal?  @db.Decimal(12, 4)
+  kt              Decimal?  @db.Decimal(8, 6)
+  kq10            Decimal?  @map("kq_10") @db.Decimal(8, 6)
+  efficiency      Decimal?  @db.Decimal(8, 6)
+  method          String?   @db.VarChar(50)
+
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz
+
+  propeller       Propeller           @relation(fields: [propellerId], references: [id], onDelete: Cascade)
+  files           AnalysisFile[]
+  cases           AnalysisCase[]
+  comparisons     EfdCfdComparison[]
+
+  @@index([propellerId])
+  @@index([jCoefficient])
+  @@map("performance_analyses")
+}
+
+/// 해석 결과 파일
+model AnalysisFile {
+  id            Int              @id @default(autoincrement())
+  analysisId    Int              @map("analysis_id")
+  fileType      AnalysisFileType @map("file_type")
+  filePath      String           @map("file_path") @db.VarChar(500)
+  originalName  String           @map("original_name") @db.VarChar(255)
+  fileSize      BigInt?          @map("file_size")
+  createdAt     DateTime         @default(now()) @map("created_at") @db.Timestamptz
+
+  analysis      PerformanceAnalysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+
+  @@index([analysisId])
+  @@map("analysis_files")
+}
+
+/// 해석 케이스
+model AnalysisCase {
+  id                Int       @id @default(autoincrement())
+  analysisId        Int       @map("analysis_id")
+  caseName          String    @map("case_name") @db.VarChar(100)
+  basePrism         Int?      @map("base_prism")
+  baseThickness     Decimal?  @map("base_thickness") @db.Decimal(6, 4)
+  surfacePrism      Int?      @map("surface_prism")
+  surfaceThickness  Decimal?  @map("surface_thickness") @db.Decimal(6, 4)
+  turbulentModel    String?   @map("turbulent_model") @db.VarChar(30)
+  viscosity         Decimal?  @db.Decimal(12, 8)
+  solverVersion     String?   @map("solver_version") @db.VarChar(50)
+  createdAt         DateTime  @default(now()) @map("created_at") @db.Timestamptz
+
+  analysis          PerformanceAnalysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+
+  @@index([analysisId])
+  @@map("analysis_cases")
+}
+
+/// EFD vs CFD 비교
+model EfdCfdComparison {
+  id              Int       @id @default(autoincrement())
+  analysisId      Int       @map("analysis_id")
+  jValue          Decimal   @map("j_value") @db.Decimal(6, 4)
+
+  // EFD (실험) 데이터
+  efdKt           Decimal?  @map("efd_kt") @db.Decimal(8, 6)
+  efdKq10         Decimal?  @map("efd_kq_10") @db.Decimal(8, 6)
+  efdEta          Decimal?  @map("efd_eta") @db.Decimal(8, 6)
+
+  // CFD (해석) 데이터
+  cfdKt           Decimal?  @map("cfd_kt") @db.Decimal(8, 6)
+  cfdKq10         Decimal?  @map("cfd_kq_10") @db.Decimal(8, 6)
+  cfdEta          Decimal?  @map("cfd_eta") @db.Decimal(8, 6)
+
+  // 차이율 (%)
+  ktDiffPercent   Decimal?  @map("kt_diff_percent") @db.Decimal(8, 4)
+  kqDiffPercent   Decimal?  @map("kq_diff_percent") @db.Decimal(8, 4)
+  etaDiffPercent  Decimal?  @map("eta_diff_percent") @db.Decimal(8, 4)
+
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz
+
+  analysis        PerformanceAnalysis @relation(fields: [analysisId], references: [id], onDelete: Cascade)
+
+  @@index([analysisId])
+  @@map("efd_cfd_comparisons")
+}

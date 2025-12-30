@@ -1,0 +1,86 @@
+/* E-CRP DB Frame - Global Styles */
+
+body {
+  padding-top: 70px; /* navbar fixed-top 대응 */
+  background-color: #f5f5f5;
+}
+
+/* 카드 스타일 */
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.card-header {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+/* 테이블 호버 효과 */
+.table-hover > tbody > tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* 상태 뱃지 */
+.badge-right {
+  background-color: #5cb85c;
+}
+
+.badge-left {
+  background-color: #f0ad4e;
+}
+
+/* 링크 스타일 */
+a.propeller-name {
+  font-weight: 600;
+}
+
+/* 폼 스타일 */
+.form-group label {
+  font-weight: 600;
+}
+
+.required::after {
+  content: " *";
+  color: #d9534f;
+}
+
+/* 통계 카드 */
+.stat-card {
+  text-align: center;
+  padding: 20px;
+}
+
+.stat-card .stat-number {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+}
+
+.stat-card .stat-label {
+  color: #777;
+  font-size: 14px;
+}
+
+/* 빈 상태 */
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #777;
+}
+
+/* 액션 버튼 그룹 */
+.action-buttons .btn {
+  margin-left: 5px;
+}
+
+.action-buttons .btn:first-child {
+  margin-left: 0;
+}
