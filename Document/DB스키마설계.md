@@ -2,52 +2,7 @@
 
 ## 1. ERD (Entity Relationship Diagram)
 
-```
-┌─────────────────────┐       ┌─────────────────────┐
-│     propellers      │       │  propeller_files    │
-├─────────────────────┤       ├─────────────────────┤
-│ PK id               │───┐   │ PK id               │
-│    name             │   │   │ FK propeller_id     │──┐
-│    blade_count      │   │   │    file_type        │  │
-│    section_type     │   └──▶│    file_path        │  │
-│    has_section_file │       │    original_name    │  │
-│    rotation_dir     │       │    created_at       │  │
-│    power_ratio      │       └─────────────────────┘  │
-│    scale_ratio      │                                │
-│    has_offset_file  │       ┌─────────────────────┐  │
-│    created_at       │       │ performance_analyses│  │
-│    updated_at       │───┐   ├─────────────────────┤  │
-└─────────────────────┘   │   │ PK id               │  │
-                          │   │ FK propeller_id     │◀─┘
-                          └──▶│    density          │
-                              │    viscosity        │
-┌─────────────────────┐       │    after_rps        │
-│   analysis_files    │       │    forward_rps      │
-├─────────────────────┤       │    rps_ratio        │
-│ PK id               │       │    reynolds_number  │
-│ FK analysis_id      │◀──────│    j_coefficient    │
-│    file_type        │       │    velocity         │
-│    file_path        │       │    thrust           │
-│    original_name    │       │    torque           │
-│    created_at       │       │    kt               │
-└─────────────────────┘       │    kq_10            │
-                              │    efficiency       │
-┌─────────────────────┐       │    method           │
-│   analysis_cases    │       │    created_at       │
-├─────────────────────┤       └─────────────────────┘
-│ PK id               │                 │
-│ FK analysis_id      │◀────────────────┘
-│    case_name        │
-│    base_prism       │
-│    base_thickness   │
-│    surface_prism    │
-│    surface_thickness│
-│    turbulent_model  │
-│    viscosity        │
-│    solver_version   │
-│    created_at       │
-└─────────────────────┘
-```
+![ERD](./E-CRP-ERD.png)
 
 ---
 
