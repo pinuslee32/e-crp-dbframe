@@ -15,6 +15,7 @@ export async function GET() {
                 name: true,
               },
             },
+            cases: true,
           },
         },
       },
@@ -24,24 +25,42 @@ export async function GET() {
     const groupedByAnalysis = comparisons.reduce((acc, comparison) => {
       const analysisId = comparison.analysisId;
       if (!acc[analysisId]) {
+        const analysisCase = comparison.analysis.cases[0];
         acc[analysisId] = {
           analysisId,
           propellerName: comparison.analysis.propeller.name,
           propellerId: comparison.analysis.propeller.id,
           jCoefficient: comparison.analysis.jCoefficient,
           method: comparison.analysis.method,
+          // Case 정보
+          case: analysisCase ? {
+            caseName: analysisCase.caseName,
+            basePrism: analysisCase.basePrism,
+            baseThickness: analysisCase.baseThickness,
+            surfacePrism: analysisCase.surfacePrism,
+            surfaceThickness: analysisCase.surfaceThickness,
+            turbulentModel: analysisCase.turbulentModel,
+            viscosity: analysisCase.viscosity,
+            solverVersion: analysisCase.solverVersion,
+          } : null,
           comparisons: [],
         };
       }
       acc[analysisId].comparisons.push({
         id: comparison.id,
         jValue: comparison.jValue,
+        // EFD
         efdKt: comparison.efdKt,
         efdKq10: comparison.efdKq10,
         efdEta: comparison.efdEta,
+        // CFD
+        vin: comparison.vin,
+        cfdThrust: comparison.cfdThrust,
         cfdKt: comparison.cfdKt,
+        cfdTorque: comparison.cfdTorque,
         cfdKq10: comparison.cfdKq10,
         cfdEta: comparison.cfdEta,
+        // Diff
         ktDiffPercent: comparison.ktDiffPercent,
         kqDiffPercent: comparison.kqDiffPercent,
         etaDiffPercent: comparison.etaDiffPercent,

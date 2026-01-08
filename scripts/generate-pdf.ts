@@ -269,7 +269,8 @@ async function generatePDF(inputFile: string, outputFile: string) {
 async function main() {
   const files = [
     { input: '기능명세서.md', output: '기능명세서.pdf' },
-    { input: 'DB스키마설계.md', output: 'DB스키마설계.pdf' }
+    { input: 'DB스키마설계.md', output: 'DB스키마설계.pdf' },
+    { input: 'E-CRP-DB-Frame-설계문서.md', output: 'E-CRP-DB-Frame-설계문서.pdf' }
   ];
 
   for (const file of files) {

@@ -163,7 +163,10 @@ model EfdCfdComparison {
   efdEta          Decimal?  @map("efd_eta") @db.Decimal(8, 6)
 
   // CFD (해석) 데이터
+  vin             Decimal?  @db.Decimal(10, 4)
+  cfdThrust       Decimal?  @map("cfd_thrust") @db.Decimal(12, 4)
   cfdKt           Decimal?  @map("cfd_kt") @db.Decimal(8, 6)
+  cfdTorque       Decimal?  @map("cfd_torque") @db.Decimal(12, 4)
   cfdKq10         Decimal?  @map("cfd_kq_10") @db.Decimal(8, 6)
   cfdEta          Decimal?  @map("cfd_eta") @db.Decimal(8, 6)
 
