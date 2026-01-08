@@ -182,3 +182,14 @@ model EfdCfdComparison {
   @@index([analysisId])
   @@map("efd_cfd_comparisons")
 }
+
+/// 관리자
+model Admin {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique @db.VarChar(50)
+  password  String   @db.VarChar(255)
+  name      String   @db.VarChar(100)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  @@map("admins")
+}

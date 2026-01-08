@@ -23,23 +23,26 @@ CFD 해석 결과를 기록하고 EFD(실험) 데이터와 비교 분석한 내�
 #### 1.3.1 CFD DB Record 예시
 
 **Case 1 : R-K-E_J0.2~0.9**
+| Propeller | 성능해석방법 | Density | Viscosity | Reynold Number | RPS   |         | RPS Ratio |
+| --------- | ------ | ------- | --------- | -------------- | ----- | ------- | --------- |
+|           |        |         |           |                | After | Forward |           |
+| KP1711    | CFD    | 998.05  | 0.00015   | 5.0E-6         | 20    | 16      | 1.25      |
 
-| Base | Default Control | | Surface Control | | Turbulent | Viscosity | STAR-CCM+ ver | 파일명 |
-|------|----------------|----------------|----------------|----------------|-----------|-----------|---------------|--------|
-| | Number Prism | Total Thickness | Number Prism | Total Thickness | | | | |
-| R-K-E | 5 | 1.0 | 8 | 0.5 | Lag-K-E | 0.0010025 | 16.06.010 | R-K-E_J0.2~0.9 |
+| Method             | Setting Value  | Program Ver.    | 해석 파일명              | 해석결과                    |
+| ------------------ | -------------- | --------------- | ------------------- | ----------------------- |
+| RANS / URANS / LES | KP1711_set.txt | STAR-CCM+ 16.06 | CRP_J0.2_rps3@20000 | Pressure / Wake / Graph |
 
-| EFD | | | | | EFD vs CFD1(Ref.) | | | | | | | | |
-|-----|--------|--------|-------|---|-----|---------|----------|----------|---------|----------|----------|----------|----------|
-| **J** | **KT** | **10KQ** | **ETAO** | | **J** | **Vin** | **THRUST** | **KT** | **Diff(%)** | **TORQUE** | **10KQ** | **Diff(%)** | **ETAO** | **Diff(%)** |
-| 0.2 | 0.4536 | 0.662 | 0.218 | | 0.2 | 0.8 | 436.768 | 0.437425 | -3.57% | 15.6413 | 0.62692 | -5.30% | 0.222213 | 1.93% |
-| 0.3 | 0.4004 | 0.5943 | 0.322 | | 0.3 | 1.2 | 387.468 | 0.38805 | -3.08% | 14.1591 | 0.567215 | -4.56% | 0.326649 | 1.44% |
-| 0.4 | 0.3452 | 0.5252 | 0.418 | | 0.4 | 1.6 | 336.292 | 0.336797 | -2.43% | 12.634 | 0.506119 | -3.63% | 0.423639 | 1.35% |
-| 0.5 | 0.2903 | 0.457 | 0.506 | | 0.5 | 2 | 284.369 | 0.284796 | -1.90% | 11.0866 | 0.444413 | -2.82% | 0.510386 | 0.85% |
-| 0.6 | 0.2369 | 0.3905 | 0.579 | | 0.6 | 2.4 | 231.848 | 0.232196 | -1.98% | 9.50042 | 0.380588 | -2.54% | 0.582601 | 0.62% |
-| 0.7 | 0.1848 | 0.3245 | 0.634 | | 0.7 | 2.8 | 179.708 | 0.179978 | -2.61% | 7.87558 | 0.315496 | -2.77% | 0.635541 | 0.24% |
-| 0.8 | 0.1323 | 0.2559 | 0.658 | | 0.8 | 3.2 | 127.513 | 0.127705 | -3.47% | 6.18459 | 0.247755 | -3.18% | 0.65629 | -0.26% |
-| 0.9 | 0.0767 | 0.1798 | 0.611 | | 0.9 | 3.6 | 73.9846 | 0.074206 | -3.40% | 4.34681 | 0.174133 | -3.15% | 0.6095 | -0.25% |
+| EFD   |        |          |          |     | EFD vs CFD1(Ref.) |         |            |          |             |            |          |             |          |             |
+| ----- | ------ | -------- | -------- | --- | ----------------- | ------- | ---------- | -------- | ----------- | ---------- | -------- | ----------- | -------- | ----------- |
+| **J** | **KT** | **10KQ** | **ETAO** |     | **J**             | **Vin** | **THRUST** | **KT**   | **Diff(%)** | **TORQUE** | **10KQ** | **Diff(%)** | **ETAO** | **Diff(%)** |
+| 0.2   | 0.4536 | 0.662    | 0.218    |     | 0.2               | 0.8     | 436.768    | 0.437425 | -3.57%      | 15.6413    | 0.62692  | -5.30%      | 0.222213 | 1.93%       |
+| 0.3   | 0.4004 | 0.5943   | 0.322    |     | 0.3               | 1.2     | 387.468    | 0.38805  | -3.08%      | 14.1591    | 0.567215 | -4.56%      | 0.326649 | 1.44%       |
+| 0.4   | 0.3452 | 0.5252   | 0.418    |     | 0.4               | 1.6     | 336.292    | 0.336797 | -2.43%      | 12.634     | 0.506119 | -3.63%      | 0.423639 | 1.35%       |
+| 0.5   | 0.2903 | 0.457    | 0.506    |     | 0.5               | 2       | 284.369    | 0.284796 | -1.90%      | 11.0866    | 0.444413 | -2.82%      | 0.510386 | 0.85%       |
+| 0.6   | 0.2369 | 0.3905   | 0.579    |     | 0.6               | 2.4     | 231.848    | 0.232196 | -1.98%      | 9.50042    | 0.380588 | -2.54%      | 0.582601 | 0.62%       |
+| 0.7   | 0.1848 | 0.3245   | 0.634    |     | 0.7               | 2.8     | 179.708    | 0.179978 | -2.61%      | 7.87558    | 0.315496 | -2.77%      | 0.635541 | 0.24%       |
+| 0.8   | 0.1323 | 0.2559   | 0.658    |     | 0.8               | 3.2     | 127.513    | 0.127705 | -3.47%      | 6.18459    | 0.247755 | -3.18%      | 0.65629  | -0.26%      |
+| 0.9   | 0.0767 | 0.1798   | 0.611    |     | 0.9               | 3.6     | 73.9846    | 0.074206 | -3.40%      | 4.34681    | 0.174133 | -3.15%      | 0.6095   | -0.25%      |
 
 > 실험 값을 기준으로 CFD1(Ref.)의 KT, KQ는 낮게 추정되며 편차가 낮은 0.2에서 최대 5.35% 낮은 결과를 보임
 
@@ -54,16 +57,20 @@ CFD 해석 결과를 기록하고 EFD(실험) 데이터와 비교 분석한 내�
 
 #### 2.1.1 유저 직접입력 항목
 
-| 항목명 | 데이터 타입 | 예시 | 설명 |
-|--------|-----------|------|------|
-| 프로펠러 이름 | String | KP1711 | 프로펠러 식별자 |
-| 날개수 | Value (Integer) | 4 | 프로펠러 날개 개수 |
-| 사용단면 | String | NACA 66 mod | 프로펠러 단면 형상 |
-| 사용단면 파일 유무 | String | O, X | 단면 파일 존재 여부 |
-| 회전방향 | String | Right, Left | 프로펠러 회전 방향 |
-| Power Ratio | String | 5:5, 4:6 | 전후 프로펠러 출력 비율 |
-| 스케일 비율 | Value (Float) | 42.063 | 모델 스케일 비율 |
-| Offset 파일 유무 | String | O, X | Offset 파일 존재 여부 |
+| 항목명          | 데이터 타입          | 예시          | 설명              |
+| ------------ | --------------- | ----------- | --------------- |
+| 프로펠러 이름      | String          | KP1711      | 프로펠러 식별자        |
+| 날개수          | Value (Integer) | 4           | 프로펠러 날개 개수      |
+| 사용단면         | String          | NACA 66 mod | 프로펠러 단면 형상      |
+| 사용단면 파일 유무   | String          | O, X        | 단면 파일 존재 여부     |
+| 회전방향         | String          | Right, Left | 프로펠러 회전 방향      |
+| Power Ratio  | String          | 5:5, 4:6    | 전후 프로펠러 출력 비율   |
+| 스케일 비율       | Value (Float)   | 42.063      | 모델 스케일 비율       |
+| Offset 파일 유무 | String          | O, X        | Offset 파일 존재 여부 |
+| 프로펠러 직경      | Value           | 0.25 m      | 프로펠러 직경         |
+| 반경 방향 개수     | Value           | 11 ea       | r/R 개수          |
+| Hub Ratio    | Value           | 0.2         | 프로펠러 직경 대비 허브 비 |
+| 확장 면적비       | Value           | 0.561       | 프로펠러 날개 면적 비율   |
 
 #### 2.1.2 파일 업로드 항목 (총 7개)
 
@@ -83,16 +90,17 @@ CFD 해석 결과를 기록하고 EFD(실험) 데이터와 비교 분석한 내�
 
 #### 2.2.1 유저 직접입력 항목 - Input
 
-| 항목명 | 데이터 타입 | 예시 | 계산식/설명 |
-|--------|-----------|------|------------|
-| Density | Value (Float) | 998.05 | 유체 밀도 |
-| Viscosity | Value (Float) | 0.00015 | 동점성 계수 |
-| After RPS | Value (Float) | 15 | 후방 프로펠러 회전수 |
-| Forward RPS | Value (Float) | 20 | 전방 프로펠러 회전수 |
-| RPS Ratio | Value (Float) | 0.75 | After RPS / Forward RPS |
-| Reynolds Number | Value (Float) | 0.000011 | Density × Velocity × Diameter / Viscosity |
-| J (Advance Coefficient) | Value (Float) | 0.2 | 전진계수 |
-| Velocity | Value (Float) | 0.062 | J × Forward RPS × Forward Diameter |
+| 항목명                     | 데이터 타입        | 예시                    | 계산식/설명                                    |
+| ----------------------- | ------------- | --------------------- | ----------------------------------------- |
+| Analysis Method         | Value (Float) | EFD / CFD / Potential | 성능해석 방식 설정                                |
+| Density                 | Value (Float) | 998.05                | 유체 밀도                                     |
+| Viscosity               | Value (Float) | 0.00015               | 동점성 계수                                    |
+| After RPS               | Value (Float) | 15                    | 후방 프로펠러 회전수                               |
+| Forward RPS             | Value (Float) | 20                    | 전방 프로펠러 회전수                               |
+| RPS Ratio               | Value (Float) | 0.75                  | After RPS / Forward RPS                   |
+| Reynolds Number         | Value (Float) | 0.000011              | Density × Velocity × Diameter / Viscosity |
+| J (Advance Coefficient) | Value (Float) | 0.2                   | 전진계수                                      |
+| Velocity                | Value (Float) | 0.062                 | J × Forward RPS × Forward Diameter        |
 
 #### 2.2.2 유저 직접입력 항목 - Output
 
@@ -121,8 +129,8 @@ CFD 해석 결과를 기록하고 EFD(실험) 데이터와 비교 분석한 내�
 
 1. **SQL 프로그래밍 (DB 논리모델)**: 데이터베이스 구조 관리
 2. **DB Case Table**: 프로펠러 케이스별 데이터 테이블 뷰
-3. **CFD DB Record**: CFD 해석 결과 기록 관리
-4. **CFD DB Analytics**: CFD 데이터 분석 및 시각화
+3. **DB Record** : 성능해석 결과 기록 관리
+4. **DB Analytics**: 성능해석 분석 및 시각화
 
 ### 3.2 시각화 요소
 
@@ -138,25 +146,46 @@ CFD 해석 결과를 기록하고 EFD(실험) 데이터와 비교 분석한 내�
 ### 4.1 분류 기준
 - **운용조건**: 운용 환경 및 조건별 분류
 - **해석방법**: 포텐셜 해석, CFD 해석
-- **해석조건**: 난류 모델, 경계조건 등
+- **해석조건**: Method, Setting Value File, Program ver., 파일명, 해석결과 등
 
 ### 4.2 Case 관리 구조
+#### 공통항목
 
-| 항목 | 설명 |
-|------|------|
-| Base | 기본 설정값 |
-| Default Control | Number Prism, Total Thickness |
-| Surface Control | Number Prism, Total Thickness |
-| Turbulent | 난류 모델 (Lag-K-E 등) |
-| Viscosity | 점성 계수 |
-| STAR-CCM+ ver | 해석 소프트웨어 버전 |
+| 항목명             | 데이터 타입        | 예시                    |         |
+| --------------- | ------------- | --------------------- | ------- |
+| Propeller       | String        | KP1711                |         |
+| Analysis Method | String        | EFD / CFD / Potential |         |
+| Density         | Value (Float) | 998.05                |         |
+| Viscosity       | Value (Float) | 0.00015               |         |
+| Reynold Number  | Value (Float) | 5.0E-6                |         |
+| RPS             | Value (Float) | After                 | Forward |
+|                 |               | 20                    | 16      |
+| RPS Ratio       | Value (Float) | 1.25                  |         |
+
+#### 성능해석 방법에 따른 추가항목 (CFD)
+
+| 항목명           | 데이터 타입 | 확장자  | 예시                      |
+| ------------- | ------ | ---- | ----------------------- |
+| Method        | String |      | RANS / URANS / LES      |
+| Setting Value |        | .txt | KP1711_Set              |
+| Program Ver.  | String |      | STAR-CCM+ 16.06         |
+| 해석 파일명        | String |      | CRP_J0.2_rps3@20000     |
+| 해석결과          |        | .png | Pressure / Wake / Graph |
+
+#### 성능해석 방법에 따른 추가항목 (Potential)
+
+| 항목명     | 데이터 타입 | 확장자 | 예시                       |
+| ------- | ------ | --- | ------------------------ |
+| Program | String |     | 인하대 코드                   |
+| 해석 파일명  | String |     | CRP_J0.2_Potiantial_Inha |
+
 
 ---
 
 ## 5. 데이터 검증 요구사항
 
 ### 5.1 EFD vs CFD 비교
-- KT, 10KQ, ETAO 값의 EFD(실험) 대비 CFD(해석) 차이율(%) 계산
+- KT, 10KQ, ETAO 값의 EFD (실험) 대비 성능해석 차이율 (%) 계산
 - 기준값 대비 오차 범위 검증
 
 ### 5.2 계산값 자동 산출
@@ -219,19 +248,23 @@ DATA XL_G
 
 ### 9.1 propellers (프로펠러 기본 정보)
 
-| 컬럼명 | 데이터 타입 | 제약조건 | 설명 |
-|--------|-----------|----------|------|
-| id | SERIAL | PK | 고유 식별자 |
-| name | VARCHAR(100) | NOT NULL, UNIQUE | 프로펠러 이름 (예: KP1711) |
-| blade_count | INTEGER | NOT NULL | 날개수 |
-| section_type | VARCHAR(50) | NOT NULL | 사용단면 (예: NACA 66 mod) |
-| has_section_file | BOOLEAN | DEFAULT false | 사용단면 파일 유무 |
-| rotation_direction | VARCHAR(10) | NOT NULL | 회전방향 (RIGHT/LEFT) |
-| power_ratio | VARCHAR(10) | NOT NULL | Power Ratio (예: 5:5, 4:6) |
-| scale_ratio | DECIMAL(10,4) | NOT NULL | 스케일 비율 |
-| has_offset_file | BOOLEAN | DEFAULT false | Offset 파일 유무 |
-| created_at | TIMESTAMP | DEFAULT NOW() | 생성일시 |
-| updated_at | TIMESTAMP | DEFAULT NOW() | 수정일시 |
+| 컬럼명                | 데이터 타입         | 제약조건             | 설명                              |
+| ------------------ | -------------- | ---------------- | ------------------------------- |
+| id                 | SERIAL         | PK               | 고유 식별자                          |
+| name               | VARCHAR(100)   | NOT NULL, UNIQUE | 프로펠러 이름 (예: KP1711)             |
+| blade_count        | INTEGER        | NOT NULL         | 날개수                             |
+| section_type       | VARCHAR(50)    | NOT NULL         | 사용단면 (예: NACA 66 mod)           |
+| has_section_file   | BOOLEAN        | DEFAULT false    | 사용단면 파일 유무                      |
+| rotation_direction | VARCHAR(10)    | NOT NULL         | 회전방향 (RIGHT/LEFT)               |
+| power_ratio        | VARCHAR(10)    | NOT NULL         | Power Ratio (예: 5:5, 4:6)       |
+| scale_ratio        | DECIMAL(10,4)  | NOT NULL         | 스케일 비율                          |
+| has_offset_file    | BOOLEAN        | DEFAULT false    | Offset 파일 유무                    |
+| created_at         | TIMESTAMP      | DEFAULT NOW()    | 생성일시                            |
+| updated_at         | TIMESTAMP      | DEFAULT NOW()    | 수정일시                            |
+| propeller_dia.     | DECIMAL(10, 4) | NOT NULL         | 프로펠러 직경 (단위: m, 예: 0.25)        |
+| num_section        | INTEGER        | NOT NULL         | 반경 방향 개수 (r/R 개수, 예: 11)        |
+| hub_ratio          | DECIMAL(10, 4) | NOT NULL         | Hub Ratio (직경 대비 허브 비율, 예: 0.2) |
+| ae_a0              | DECIMAL(10, 4) | NOT NULL         | 확장 면적비 (Ae/A0, 예: 0.561)        |
 
 ### 9.2 propeller_files (프로펠러 파일)
 
